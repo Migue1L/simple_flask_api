@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ML Prediction UI</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 2rem auto; }
+    label, input { display: block; margin: 0.5rem 0; }
+    input[type="text"] { width: 100%; padding: 0.4rem; }
+    button { margin-top: 1rem; padding: 0.5rem 1rem; }
+    #result { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Enter Features for Prediction</h2>
+  <form id="predict-form">
+    <label for="features">Features (comma-separated):</label>
+    <input type="text" id="features" name="features" placeholder="e.g. 5.1,3.5,1.4,0.2" required />
+    <button type="submit">Predict</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('predict-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const featuresInput = document.getElementById('features').value;
+      const featuresArray = featuresInput.split(',').map(x => parseFloat(x.trim()));
+
+      // Call your prediction API on port 6000
+      try {
+        const response = await fetch('http://localhost:6000/predict', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ features: featuresArray })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          document.getElementById('result').innerText = 'Prediction: ' + JSON.stringify(data);
+        } else {
+          document.getElementById('result').innerText = 'Error: ' + JSON.stringify(data);
+        }
+      } catch (error) {
+        document.getElementById('result').innerText = 'Fetch error: ' + error.message;
+      }
+    });
+  </script>
+</body>
+</html>

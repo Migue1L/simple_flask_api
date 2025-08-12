@@ -18,4 +18,4 @@ model = RandomForestClassifier(n_estimators=100)
 model.fit(X, y)
 
 joblib.dump(model, 'model.pkl')
-print("Model trained and saved!")
+print("model successfully trained")

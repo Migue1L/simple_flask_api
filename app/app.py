@@ -1,11 +1,10 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, render_template
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return jsonify({"message:" "--- DevOps p i p e l i n e ---"})
+    return render_template('index.html') 
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 5000)
+    app.run(host = "0.0.0.0", port = 5001, debug = True)
 
-    
