@@ -10,7 +10,7 @@
     button { margin-top: 1rem; padding: 0.5rem 1rem; }
     #result { margin-top: 1rem; font-weight: bold; }
   </style>
-</head>
+</head>ß
 <body>
   <h2>Enter Features for Prediction</h2>
   <form id="predict-form">
@@ -29,7 +29,7 @@
 
       // Call your prediction API on port 6000
       try {
-        const response = await fetch('http://localhost:6000/predict', {
+        const response = await fetch("http://model:6000/predict", {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({ features: featuresArray })
